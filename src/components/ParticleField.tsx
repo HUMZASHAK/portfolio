@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const stars = Array.from({ length: 150 }, (_, index) => ({
   id: index,
@@ -21,10 +22,25 @@ const shootingStars = [
 ];
 
 export default function ParticleField() {
+  const [starCount, setStarCount] = useState(150);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const tabletQuery = window.matchMedia("(max-width: 1023px)");
+    const updateCount = () => setStarCount(query.matches ? 72 : tabletQuery.matches ? 100 : 150);
+    updateCount();
+    query.addEventListener("change", updateCount);
+    tabletQuery.addEventListener("change", updateCount);
+    return () => {
+      query.removeEventListener("change", updateCount);
+      tabletQuery.removeEventListener("change", updateCount);
+    };
+  }, []);
+
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[1] overflow-hidden mix-blend-screen">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.06),transparent_48%),radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.05),transparent_44%)]" />
-      {stars.map((star) => (
+      {stars.slice(0, starCount).map((star) => (
         <motion.span
           key={star.id}
           initial={{ opacity: star.opacity * 0.45, scale: 0.75 }}

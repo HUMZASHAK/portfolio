@@ -36,7 +36,7 @@ export default function CertificationsSection() {
       title="Professional learning milestones that reinforce my technical foundation."
       description="These certifications reflect my commitment to building practical skills in software engineering, frontend development, and data-driven thinking."
     >
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
         {certifications.map((cert, index) => (
           <motion.div
             key={cert.title}
@@ -44,9 +44,9 @@ export default function CertificationsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="rounded-[24px] border border-white/10 bg-slate-950/60 p-7 backdrop-blur"
+            className="rounded-[24px] border border-white/10 bg-slate-950/60 p-5 backdrop-blur sm:p-7"
           >
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <h3 className="font-display text-xl font-semibold text-slate-100">{cert.title}</h3>
               <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-300">
                 {cert.date}

@@ -33,7 +33,7 @@ export default function ProjectsSection() {
       title="Selected work that balances beauty and performance."
       description="Every project is designed to feel premium, fast, and intentional from first interaction to final animation."
     >
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-2 lg:gap-6 xl:grid-cols-3">
         {projects.map((project, index) => (
           <motion.article
             key={project.title}
@@ -42,7 +42,7 @@ export default function ProjectsSection() {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, delay: index * 0.08 }}
             whileHover={{ y: -6, scale: 1.01 }}
-            className="group relative overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-950/70 to-slate-900/80 p-7 shadow-[0_0_60px_rgba(56,189,248,0.06)] backdrop-blur"
+            className="group relative overflow-hidden rounded-[24px] border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-950/70 to-slate-900/80 p-5 shadow-[0_0_60px_rgba(56,189,248,0.06)] backdrop-blur sm:rounded-[28px] sm:p-7"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.14),transparent_28%)] opacity-80 transition duration-500 group-hover:opacity-100" />
             <div className="relative">
@@ -69,7 +69,7 @@ export default function ProjectsSection() {
 
               <a
                 href={project.link}
-                className="mt-8 inline-flex items-center text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+                className="mt-8 inline-flex min-h-11 w-full items-center justify-center rounded-full border border-cyan-400/25 bg-cyan-400/5 px-4 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-400/10 hover:text-cyan-200 sm:w-auto sm:justify-start sm:border-0 sm:bg-transparent sm:px-0"
               >
                 View project →
               </a>

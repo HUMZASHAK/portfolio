@@ -6,6 +6,7 @@ export default function CursorGlow() {
   const [mode, setMode] = useState<"default" | "planet">("default");
   const [interactive, setInteractive] = useState(false);
   const [pressed, setPressed] = useState(false);
+  const [enabled, setEnabled] = useState(false);
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const springX = useSpring(x, { stiffness: 220, damping: 24, mass: 0.3 });
@@ -13,6 +14,10 @@ export default function CursorGlow() {
 
   useEffect(() => {
     setMounted(true);
+    const query = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
+    const updateEnabled = () => setEnabled(query.matches);
+    updateEnabled();
+    query.addEventListener("change", updateEnabled);
 
     const move = (event: MouseEvent) => {
       x.set(event.clientX);
@@ -43,10 +48,11 @@ export default function CursorGlow() {
       window.removeEventListener("mousedown", handleDown);
       window.removeEventListener("mouseup", handleUp);
       window.removeEventListener("portfolio-cursor-mode", handleMode as EventListener);
+      query.removeEventListener("change", updateEnabled);
     };
   }, [x, y]);
 
-  if (!mounted) return null;
+  if (!mounted || !enabled) return null;
 
   return (
     <motion.div

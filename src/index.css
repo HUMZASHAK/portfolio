@@ -22,7 +22,7 @@ body {
   min-height: 100vh;
   background: #050816;
   color: #f8fafc;
-  cursor: crosshair;
+  cursor: auto;
 }
 
 @media (pointer: fine) {
@@ -33,6 +33,37 @@ body {
   textarea,
   select {
     cursor: none;
+  }
+}
+
+@media (max-width: 1023px), (pointer: coarse) {
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    cursor: auto;
+  }
+
+  .group:hover img {
+    transform: none;
+  }
+}
+
+@media (max-width: 639px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
   }
 }
 

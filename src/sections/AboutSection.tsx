@@ -42,10 +42,10 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 text-center sm:text-left"
         >
           {aboutHighlights.map((item) => (
-            <div key={item.title} className="rounded-[24px] border border-white/10 bg-slate-950/50 p-6 backdrop-blur">
+            <div key={item.title} className="rounded-[24px] border border-white/10 bg-slate-950/50 p-5 backdrop-blur sm:p-6">
               <h4 className="font-display text-xl font-semibold text-slate-100">{item.title}</h4>
               <p className="mt-3 text-sm leading-7 text-slate-400">{item.text}</p>
             </div>
