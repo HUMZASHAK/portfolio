@@ -21,7 +21,7 @@ export default function AboutSection() {
         >
           <div className="pointer-events-none absolute -inset-20 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.28),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.25),transparent_42%)] opacity-70 blur-2xl transition duration-700 group-hover:opacity-100" />
           <div className="relative overflow-hidden rounded-[24px] border border-white/10">
-            <img src="/images/shaik-humza-profile.jpeg" alt="Shaik Humza" className="aspect-[4/5] w-full object-cover object-center transition duration-700 group-hover:scale-105" />
+            <img src="/images/shaik-humza-profile.jpeg" alt="Shaik Humza" width="800" height="1000" decoding="async" className="aspect-[4/5] w-full object-cover object-center transition duration-700 group-hover:scale-105" />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#050816]/95 via-[#050816]/35 to-transparent px-6 pb-6 pt-20">
               <p className="text-xs uppercase tracking-[0.3em] text-cyan-200">Software engineer aspirant</p>
               <h3 className="mt-2 font-display text-2xl font-semibold text-slate-50">Shaik Humza</h3>

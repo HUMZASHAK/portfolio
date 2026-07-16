@@ -1,7 +1,27 @@
 import { motion } from "framer-motion";
+import { useState, type FormEvent } from "react";
 import SectionShell from "../components/SectionShell";
 
 export default function ContactSection() {
+  const [formError, setFormError] = useState("");
+
+  const validateForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const values = new FormData(event.currentTarget);
+    const name = String(values.get("name") ?? "").trim();
+    const email = String(values.get("email") ?? "").trim();
+    const subject = String(values.get("subject") ?? "").trim();
+    const message = String(values.get("message") ?? "").trim();
+    const honeypot = String(values.get("website") ?? "").trim();
+
+    if (honeypot || name.length < 2 || !/^\S+@\S+\.\S+$/.test(email) || subject.length < 3 || message.length < 10) {
+      setFormError("Please complete each field with valid contact details before sending.");
+      return;
+    }
+
+    setFormError("Your details are valid. Please use the email address shown to get in touch.");
+  };
+
   return (
     <SectionShell
       id="contact"
@@ -20,13 +40,15 @@ export default function ContactSection() {
             <p><a href="https://github.com/shaikhumza" target="_blank" rel="noreferrer" className="text-cyan-300 transition hover:text-cyan-200">GitHub ↗</a> · <a href="https://linkedin.com/in/shaikhumza" target="_blank" rel="noreferrer" className="text-cyan-300 transition hover:text-cyan-200">LinkedIn ↗</a></p>
           </div>
         </div>
-        <motion.form initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="rounded-[24px] border border-white/15 bg-slate-950/60 p-5 backdrop-blur sm:rounded-[32px] sm:p-8" onSubmit={(event) => event.preventDefault()}>
+        <motion.form initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="rounded-[24px] border border-white/15 bg-slate-950/60 p-5 backdrop-blur sm:rounded-[32px] sm:p-8" onSubmit={validateForm}>
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute h-px w-px overflow-hidden opacity-0" />
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="text-sm text-slate-300">Name<input required name="name" className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="Your name" /></label>
-            <label className="text-sm text-slate-300">Email<input required type="email" name="email" className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="you@example.com" /></label>
+            <label className="text-sm text-slate-300">Name<input required minLength={2} maxLength={80} autoComplete="name" name="name" className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="Your name" /></label>
+            <label className="text-sm text-slate-300">Email<input required type="email" maxLength={254} autoComplete="email" name="email" className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="you@example.com" /></label>
           </div>
-          <label className="mt-4 block text-sm text-slate-300">Subject<input required name="subject" className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="How can we work together?" /></label>
-          <label className="mt-4 block text-sm text-slate-300">Message<textarea required name="message" rows={4} className="mt-2 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="Write your message..." /></label>
+          <label className="mt-4 block text-sm text-slate-300">Subject<input required minLength={3} maxLength={160} name="subject" className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="How can we work together?" /></label>
+          <label className="mt-4 block text-sm text-slate-300">Message<textarea required minLength={10} maxLength={3000} name="message" rows={4} className="mt-2 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-cyan-400/50" placeholder="Write your message..." /></label>
+          <p role="status" aria-live="polite" className={`mt-4 text-sm ${formError ? "text-cyan-200" : "sr-only"}`}>{formError}</p>
           <motion.button type="submit" whileHover={{ y: -2, scale: 1.02 }} whileTap={{ scale: 0.98 }} className="mt-6 min-h-11 w-full rounded-full border border-cyan-400/40 bg-cyan-400/10 px-6 py-3 text-sm font-semibold text-cyan-200 shadow-[0_0_24px_rgba(34,211,238,0.12)] transition hover:bg-cyan-400/20 sm:w-auto">Send message</motion.button>
         </motion.form>
       </div>

@@ -1,0 +1,10 @@
+{
+  "name": "Shaik Humza Portfolio",
+  "short_name": "Shaik Humza",
+  "description": "Full-stack developer portfolio for Shaik Humza.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "icons": [{ "src": "/humza-logo.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }]
+}
